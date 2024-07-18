@@ -1,4 +1,6 @@
 streamlit
 openai
-langchain
 requests
+PyPDF2
+google.generativeai
+python-dotenv
