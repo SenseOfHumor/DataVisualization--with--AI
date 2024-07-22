@@ -25,8 +25,13 @@ uploaded_file =  st.file_uploader("Upload a dataset or ask the LLM to generate o
 #configure the API key
 genai.configure(api_key = os.getenv("GOOGLE_API_KEY"))
 
-def csv_data():
-    return uploaded_file
+def csv_data(uploaded_file):
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
+        return df
+    else:
+        st.error("No file uploaded!")
+        return None
 
 ##GeminiPro response
 def get_gemini_response(request, data):
@@ -51,13 +56,13 @@ input_prompt = """
     analyze it, and then write a python code that visualizes the data as per the user request.
     This python code format is to be followed strictly. the code should use the python library "streamlit" to visualize the data.
 
-    ## import the necessary libraries
+    you will import the necessary libraries like this:
     import streamlit as st
     import pandas as pd
     from app import csv_data
     import plotly.express as px
 
-    # Load the dataset
+    Then you will Load the dataset like this:
     uploaded_file = csv_data()
     df = pd.read_csv(uploaded_file)
 

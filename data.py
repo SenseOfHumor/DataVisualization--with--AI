@@ -1,15 +1,25 @@
-## import the necessary libraries
+```python
 import streamlit as st
 import pandas as pd
 from app import csv_data
 import plotly.express as px
 
-# Load the dataset
 uploaded_file = csv_data()
 df = pd.read_csv(uploaded_file)
 
-# Visualizing the data
-fig = px.timeline(df, x_start="Start Time", x_end="End Time", y="Task", color="Task")
-fig.update_yaxes(autorange="reversed")
-fig.update_layout(height=700, title="Daily Schedule")
+fig = px.timeline(
+    df,
+    x_start="Start Time",
+    x_end="End Time",
+    y="Task",
+    color="Task",
+)
+
+fig.update_layout(
+    title="Timeline of Tasks",
+    xaxis_title="Time",
+    yaxis_title="Task",
+)
+
 st.plotly_chart(fig)
+```
